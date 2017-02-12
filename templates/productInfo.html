@@ -64,6 +64,20 @@
            // FB.api('/me/feed', 'post', {message: 'Hello, world!'});
          }
 
+         var url = result[image];
+         var caption = result[title];
+
+         function postProduct() {
+           FB.api('745411662282429', ‘photos’, { url: url, caption: caption}, function(response) {
+              if (!response || response.error) {
+                alert('Error occured');
+              } else {
+                alert('Post ID: ' + response.id);
+              }
+            });     
+         }
+
+
 
 
     </script>

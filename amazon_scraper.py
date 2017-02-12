@@ -4,15 +4,13 @@ import re
 
 #example
 products = ['https://www.amazon.com/Highlands-Argyle-Mens-Golf-Collection/dp/B00EDQW9G0/ref=sr_1_50?ie=UTF8&qid=1486852744&sr=8-50-spons&keywords=socks&psc=1',
-				'https://www.amazon.com/Annies-Macaroni-Cheese-Microwave-Cheddar/dp/B00D7D1Y7U/ref=sr_1_1?ie=UTF8&qid=1486850821&sr=8-1-spons&keywords=annie%27s+mac+and+cheese&psc=1',
-				'https://www.amazon.com/dp/B00RNEBB90/ref=twister_B00RNEBB6S?_encoding=UTF8&th=1',
-				'https://www.amazon.com/dp/B01D2ZN5LK/ref=twister_B01HTRXLB6?_encoding=UTF8&psc=1'
-				]
+			'https://www.amazon.com/Annies-Macaroni-Cheese-Microwave-Cheddar/dp/B00D7D1Y7U/ref=sr_1_1?ie=UTF8&qid=1486850821&sr=8-1-spons&keywords=annie%27s+mac+and+cheese&psc=1',
+			'https://www.amazon.com/dp/B00RNEBB90/ref=twister_B00RNEBB6S?_encoding=UTF8&th=1',
+			'https://www.amazon.com/dp/B01D2ZN5LK/ref=twister_B01HTRXLB6?_encoding=UTF8&psc=1']
 
 def build_product(url):
 	product = {}
 	r = urllib.urlopen(url).read()
-
 	soup = BeautifulSoup(r, 'html.parser')
 
 	####################### Image Scraping #####################

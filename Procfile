@@ -1,1 +1,1 @@
-web gunicorn manage:coshoptest
+web: gunicorn coshop:APP

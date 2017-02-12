@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 
 import flask
+# from flask import request
 import os
 
 from bs4 import BeautifulSoup
@@ -26,8 +27,7 @@ def build_product(url):
 				product['image'] = t['src']
 
 	####################### Title Scraping #####################
-	title_data = soup.find_all('span', id='productTitle')
-
+	title_data = soup.find_all('span', id='productTitle')	
 	if len(title_data) > 1:
 		print 'TITLE DATA IS LENGTH: ', len(title_data)
 

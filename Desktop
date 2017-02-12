@@ -10,10 +10,13 @@
 <font face="arial">
 
 <center><img src='logo.png'>
-<form action="demo_form.asp">
+<!-- <form action="demo_form.asp">
 	Amazon Url: <input type="text" name="amazonProduct" size=50><br>
 	<input type="submit" value="Generate a Post" onclick=''>
-</form>
+</form> -->
+
+<input type="submit" name="submit" value="Do Something">
+
 </center>
 </font>
 </body>

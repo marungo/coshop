@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 
 import flask
+# from flask import request
 import os
 
 from bs4 import BeautifulSoup
@@ -76,11 +77,12 @@ def index():
     """
     return flask.render_template('index.html')
 
-@APP.route('/add', methods=['POST'])
+@APP.route('/', methods=['GET','POST'])
 def my_form_post():
-    url = request.form['text']
-    product = build_product(url)
-    print product
+    url = flask.request.form['amazonProduct']
+	product = build_product(url)
+    return flask.render_template('index.html')
+  		#execute the python script.
 
 
 if __name__ == '__main__':

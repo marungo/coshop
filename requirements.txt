@@ -15,7 +15,6 @@ enum34==1.1.6
 ez-setup==0.9
 Flask==0.12
 functools32==3.2.3.post2
-GDAL==1.11.5
 gunicorn==19.6.0
 html5lib==0.9999999
 imageio==2.1.2

@@ -2,7 +2,7 @@
 
 import flask
 from flask import request
-from flask_sqlalchemy import SQLAlchemy
+#from flask_sqlalchemy import SQLAlchemy
 
 import os
 from bs4 import BeautifulSoup
@@ -13,8 +13,8 @@ import re
 # Create the application.
 APP = flask.Flask(__name__)
 
-APP.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://localhost/maryruthngo'
-db = SQLAlchemy(APP)
+#APP.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://localhost/maryruthngo'
+#db = SQLAlchemy(APP)
 
 def build_product(url):
 	product = {}

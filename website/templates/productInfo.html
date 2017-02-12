@@ -70,13 +70,19 @@
   the FB.login() function when clicked.
 -->
 
-<fb:login-button scope="public_profile,email" onlogin="checkLoginState();">
-</fb:login-button>
+<!-- <fb:login-button scope="public_profile,email" onlogin="checkLoginState();">
+</fb:login-button> -->
+
+<center>
+<div class="fb-login-button" data-max-rows="1" data-size="xlarge"
+data-show-faces="false" data-auto-logout-link="false"
+onlogin="checkLoginState();"></div>
+
 
 <div id="status">
 </div>
 
-      <table border = 1>
+      <!-- <table border = 0>
          {% for key, value in result.iteritems() %}
 
             <tr>
@@ -85,7 +91,21 @@
             </tr>
 
          {% endfor %}
-      </table>
+      </table> -->
+
+      <form action="/" method="post">
+
+        {% for key, value in result.iteritems() %}
+            {{ key }}:<br>
+            <input type="text" name = {{ key}} value = {{ value }}
+            size=50>
+            <br> <br>
+         {% endfor %}
+
+      	<input type="submit" value="Generate a Post" onclick=''>
+      </form>
+
+</center>
 
    </body>
 </html>

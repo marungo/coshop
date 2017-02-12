@@ -1,1 +1,1 @@
-python website/coshop.py
+web gunicorn manage:coshoptest

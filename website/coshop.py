@@ -26,11 +26,10 @@ def build_product(url):
 				product['image'] = t['src']
 
 	####################### Title Scraping #####################
-	title_data = soup.find_all('span', id='productTitle')
-	
+	title_data = soup.find_all('span', id='productTitle')	
 	if len(title_data) > 1:
 		print 'TITLE DATA IS LENGTH: ', len(title_data)
-	
+
 	for tag in title_data:
 		title = tag.contents[0].strip()
 		product['title'] = title
@@ -71,13 +70,19 @@ def build_product(url):
 	####################### END Price Scraping #####################
 	return product
 
-
 @APP.route('/')
 def index():
     """ Displays the index page accessible at '/'
     """
     return flask.render_template('index.html')
-    
+
+@APP.route('/add', methods=['POST'])
+def my_form_post():
+    url = request.form['text']
+    product = build_product(url)
+    print product
+
+
 if __name__ == '__main__':
     APP.debug=True
     APP.run()

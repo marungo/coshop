@@ -3,6 +3,10 @@
 import flask
 import os
 
+from bs4 import BeautifulSoup
+import urllib
+import re
+
 
 # Create the application.
 APP = flask.Flask(__name__)
@@ -73,12 +77,14 @@ def index():
     """
     return flask.render_template('index.html')
 
-@APP.route('/add', methods=['POST'])
+@APP.route('/', methods=['POST'])
 def my_form_post():
-    url = request.form['text']
-    product = build_product(url)
-    print product
-
+    print "inside!"
+    url = flask.request.form['amazonProduct']
+    print url
+    product_info = build_product(url)
+    print product_info
+    return flask.render_template('productInfo.html', result=product_info)
 
 if __name__ == '__main__':
     APP.debug=True

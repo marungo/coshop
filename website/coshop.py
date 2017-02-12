@@ -77,13 +77,14 @@ def index():
     """
     return flask.render_template('index.html')
 
-@APP.route('/', methods=['GET','POST'])
+@APP.route('/', methods=['POST'])
 def my_form_post():
+    print "inside!"
     url = flask.request.form['amazonProduct']
-	product = build_product(url)
-    return flask.render_template('index.html')
-  		#execute the python script.
-
+    print url
+    product_info = build_product(url)
+    print product_info
+    return flask.render_template('productInfo.html', result=product_info)
 
 if __name__ == '__main__':
     APP.debug=True

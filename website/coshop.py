@@ -91,5 +91,5 @@ def my_form_post():
     return flask.render_template('productInfo.html', result=product_info)
 
 if __name__ == '__main__':
-    APP.debug=True
+    APP.debug=False
     APP.run()

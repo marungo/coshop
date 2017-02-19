@@ -32,9 +32,9 @@ function test_input($data) {
 ?>
 
 <h2>PHP Form Validation Example</h2>
-<p><span class="error">* required field.</span></p>
-<form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">  
-  Amazon URL: <input type="text" name="website">
+<!-- <p><span class="error">* required field.</span></p>
+ --><form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">  
+  Amazon URL: <input type="text" name="website" size=100>
   <span class="error"><?php echo $websiteErr;?></span>
   <br><br>
   <input type="submit" name="submit" value="Submit">  

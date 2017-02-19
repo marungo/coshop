@@ -50,13 +50,15 @@ echo $ItemId;
 define("Access_Key_ID", "AKIAILT6XJREK4ITJJZA");
 define("Associate_tag", "coshopsmaymng-20");
 
-ItemLoopup($ItemId);
+$Signature = exec('python getSignature.py', $output)
+
+ItemLookup($ItemId, $Signature);
 
 //Set up the operation in the request
-function ItemLookup($ItemId){
+function ItemLookup($ItemId, $Signature){
 
   //Set the values for some of the parameters
-  $Operation = "ItemLookup”;
+  $Operation = "ItemLookup";
   $Version = "2013-08-01";
   $ResponseGroup = "ItemAttributes,OfferFull,Images”;
   //User interface provides values
@@ -69,8 +71,9 @@ function ItemLookup($ItemId){
      . "&AssociateTag=" . Associate_tag
      . "&AWSAccessKeyId=" . Access_Key_ID
      . "&Operation=" . $Operation
-     . “&ItemId=" . $ItemId
-     . "&ResponseGroup=" . $ResponseGroup;
+     . "&ItemId=" . $ItemId
+     . "&ResponseGroup=" . $ResponseGroup
+     . "&Signature=" . $Signature
 
   //Catch the response in the $response object
   $response = file_get_contents($request);

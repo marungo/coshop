@@ -80,27 +80,22 @@ function ItemLookup($ItemId){
 
 function printSearchResults($parsed_xml, $SearchIndex){
    print("<table>");
-  API Version 2013-08-01
-  27
-  Product Advertising API Getting Started Guide
-  PHP
    if($numOfItems>0){
-   foreach($parsed_xml->Items->Item as $current){
-   print("<td><font size='-1'><b>".$current->ItemAttributes->Title."</b>");
-   if (isset($current->ItemAttributes->Title)) {
-   print("<br>Title: ".$current->ItemAttributes->Title);
-   } elseif(isset($current->ItemAttributes->Author)) {
-   print("<br>Author: ".$current->ItemAttributes->Author);
-   } elseif
-   (isset($current->Offers->Offer->OfferListing->Price->FormattedPrice)){
-   print("<br>Price:
-   ".$current->Offers->Offer->OfferListing->Price->FormattedPrice);
-   }else{
-   print("<center>No matches found.</center>");
-   }
+     foreach($parsed_xml->Items->Item as $current){
+       print("<td><font size='-1'><b>".$current->ItemAttributes->Title."</b>");
+       if (isset($current->ItemAttributes->Title)) {
+         print("<br>Title: ".$current->ItemAttributes->Title);
+       } elseif(isset($current->ItemAttributes->Author)) {
+         print("<br>Author: ".$current->ItemAttributes->Author);
+       } elseif (isset($current->Offers->Offer->OfferListing->Price->FormattedPrice)){
+         print("<br>Price:
+         ".$current->Offers->Offer->OfferListing->Price->FormattedPrice);
+       }else{
+         print("<center>No matches found.</center>");
+       }
+     }
    }
  }
-}
 ?>
 
 </body>

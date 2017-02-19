@@ -41,8 +41,10 @@ function test_input($data) {
 </form>
 
 <?php
-echo "<h2>Your Input:</h2>";
-echo $website;
+echo "<h2>Your Product's ID:</h2>";
+$ItemId = explode("/", explode ("dp/" , $website)[1])[0];
+// $ItemId = explode ("/", $website[1]);
+echo $ItemId;
 ?>
 
 </body>

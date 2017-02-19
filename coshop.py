@@ -21,11 +21,12 @@ APP = flask.Flask(__name__)
 def build_product(url):
 	product = {}
 	r = urllib.urlopen(url).read()
+	# print r
 	soup = BeautifulSoup(r, 'html.parser')
-
+	print soup
 	####################### Image Scraping #####################
 	img_data = soup.find_all('div', class_='imgTagWrapper')
-
+	print "img: ", img_data
 	for tag in img_data:
 		for t in tag:
 			if t.name == 'img':
@@ -37,6 +38,7 @@ def build_product(url):
 	if len(title_data) > 1:
 		print 'TITLE DATA IS LENGTH: ', len(title_data)
 
+	print title_data
 	for tag in title_data:
 		title = tag.contents[0].strip()
 		product['title'] = title
@@ -81,7 +83,9 @@ def build_product(url):
 def index():
     """ Displays the index page accessible at '/'
     """
+    build_product('https://www.amazon.com/dp/B01D2ZN5LK/ref=twister_B01HTRXLB6?_encoding=UTF8&psc=1')
     return flask.render_template('index.html')
+
 
 @APP.route('/', methods=['POST'])
 def my_form_post():

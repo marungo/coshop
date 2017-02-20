@@ -1,3 +1,0 @@
-AWSAccessKeyId=AKIAILT6XJREK4ITJJZA
-AWSSecretKey=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
-Associate_Tag=coshopsmaymng-20

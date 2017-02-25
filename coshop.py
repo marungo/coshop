@@ -110,7 +110,6 @@ def build_product(soup):
 #     build_product('https://www.amazon.com/dp/B01D2ZN5LK/ref=twister_B01HTRXLB6?_encoding=UTF8&psc=1')
 #     return flask.render_template('index.html')
 
-
 @APP.route('/', methods=['POST'])
 def my_form_post():
     print "inside!"

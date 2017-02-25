@@ -50,6 +50,7 @@ echo $ItemId;
 define("Access_Key_ID", "AKIAILT6XJREK4ITJJZA");
 define("Associate_tag", "coshopsmaymng-20");
 
+// get signature from python file 
 $Signature = exec('python getSignature.py', $output)
 
 ItemLookup($ItemId, $Signature);

@@ -117,7 +117,7 @@ def index():
 
 @APP.route('/', methods=['POST'])
 def my_form_post():
-    url = flask.request.form['amazonProduct']
+	url = flask.request.form['amazonProduct']
 	# get Asin from url
 	r = re.compile("(?<=/dp/).*(?=/)")
 	product_asin = r.findall(url)[0]
@@ -125,8 +125,8 @@ def my_form_post():
 	products = load_static_products(os.getcwd() + '/static')
     # product_info = fake_build_product()
 	product_info = products[asin]
-    print product_info
-    return flask.render_template('form.html', product_info=product_info)
+	print product_info
+	return flask.render_template('form.html', product_info=product_info)
 
 if __name__ == '__main__':
     APP.debug=False

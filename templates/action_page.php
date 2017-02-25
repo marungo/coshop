@@ -33,7 +33,7 @@ function test_input($data) {
 
 <h2>PHP Form Validation Example</h2>
 <!-- <p><span class="error">* required field.</span></p>
- --><form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">  
+ --><form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
   Amazon URL: <input type="text" name="website" size=100>
   <span class="error"><?php echo $websiteErr;?></span>
   <br><br>
@@ -50,6 +50,7 @@ echo $ItemId;
 define("Access_Key_ID", "AKIAILT6XJREK4ITJJZA");
 define("Associate_tag", "coshopsmaymng-20");
 
+// get signature from python file 
 
 // return value is status: probably a 0
 $return_val = exec('python getSignature.py', $Signature)

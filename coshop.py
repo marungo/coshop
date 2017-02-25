@@ -18,14 +18,13 @@ APP = flask.Flask(__name__)
 # APP.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://localhost/maryruthngo'
 # db = SQLAlchemy(APP)
 
-def load_static_sites(path):
+def load_static_products(path):
 	""" Returns a dictionary of form {asin: {productinfo dict}} for a set of
 	static product html files in a given directory
 	"""
 	products = {}
-	f_path = os.getcwd() + '/' + path
 
-	for f in os.listdir(f_path):
+	for f in os.listdir(path):
 		if f.endswith('.htm') or f.endswith('html'):
 
 			with open(f_path + '/' + f, 'rU') as f_open:
@@ -33,7 +32,7 @@ def load_static_sites(path):
 				text = ''.join(f_open.readlines())
 
 			# get Asin ID
-			r = re.compile("(?<=\"currentAsin\" : ).*\"")
+			r = re.compile("(?<=\"currentAsin\" : \").*(?=\")")
 			asin = r.findall(text)[0]
 
 			# get product info
@@ -109,7 +108,6 @@ def build_product(soup):
 	####################### END Price Scraping #####################
 	return product
 
-# ????? why is this here
 @APP.route('/')
 def index():
     """ Displays the index page accessible at '/'
@@ -119,10 +117,14 @@ def index():
 
 @APP.route('/', methods=['POST'])
 def my_form_post():
-    print "inside!"
     url = flask.request.form['amazonProduct']
-    print url
-    product_info = fake_build_product()
+	# get Asin from url
+	r = re.compile("(?<=/dp/).*(?=/)")
+	product_asin = r.findall(url)[0]
+	print url, '\n', product_asin
+	products = load_static_products(os.getcwd() + '/static')
+    # product_info = fake_build_product()
+	product_info = products[asin]
     print product_info
     return flask.render_template('form.html', product_info=product_info)
 

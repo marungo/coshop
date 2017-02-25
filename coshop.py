@@ -24,6 +24,13 @@ def load_static_sites(path):
 			soup = BeautifulSoup(f, 'html.parser')
 			build_product(soup)
 
+def fake_build_product():
+	product = {'image': 'pics/laundry.jpg',
+			   'title': 'Tide Original Scent HE Turbo Clean Liquid Laundry Detergent, 50 Fl Oz (32 Loads), 2 Count',
+			   'price': 10.77,
+			   'pack_of': 2}
+	return product
+
 def build_product(soup):
 	# product = {}
 	# r = urllib.urlopen(url).read()
@@ -86,21 +93,21 @@ def build_product(soup):
 	return product
 
 # ????? why is this here
-# @APP.route('/')
-# def index():
-#     """ Displays the index page accessible at '/'
-#     """
-#     build_product('https://www.amazon.com/dp/B01D2ZN5LK/ref=twister_B01HTRXLB6?_encoding=UTF8&psc=1')
-#     return flask.render_template('index.html')
+@APP.route('/')
+def index():
+    """ Displays the index page accessible at '/'
+    """
+    #build_product('https://www.amazon.com/dp/B01D2ZN5LK/ref=twister_B01HTRXLB6?_encoding=UTF8&psc=1')
+    return flask.render_template('index.html')
 
 @APP.route('/', methods=['POST'])
 def my_form_post():
     print "inside!"
     url = flask.request.form['amazonProduct']
     print url
-    product_info = build_product(url)
+    product_info = fake_build_product()
     print product_info
-    return flask.render_template('productInfo.html', product_info=product_info)
+    return flask.render_template('form.html', product_info=product_info)
 
 if __name__ == '__main__':
     APP.debug=False

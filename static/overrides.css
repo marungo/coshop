@@ -10,3 +10,9 @@ body {
 .progress .bar {
 	background-image: linear-gradient(to bottom,#62c462,#62c462);
 }
+
+.btn-primary {
+    color: #fff;
+    background-color: #62c462;
+    background-image: linear-gradient(to bottom,#62c462,#62c462);
+}

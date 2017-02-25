@@ -5,16 +5,112 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- Bootstrap -->
     <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">
+    <!-- Latest compiled and minified CSS -->
     <link href="overrides.css" rel="stylesheet">
   </head>
+  <script>
+      window.fbAsyncInit = function() {
+        FB.init({
+          appId      : '1851769221729301',
+          xfbml      : true,
+          version    : 'v2.8'
+        });
+        FB.AppEvents.logPageView();
+      };
+
+      (function(d, s, id){
+         var js, fjs = d.getElementsByTagName(s)[0];
+         if (d.getElementById(id)) {return;}
+         js = d.createElement(s); js.id = id;
+         js.src = "//connect.facebook.net/en_US/sdk.js";
+         fjs.parentNode.insertBefore(js, fjs);
+       }(document, 'script', 'facebook-jssdk'));
+
+
+       // This is called with the results from from FB.getLoginStatus().
+       function statusChangeCallback(response) {
+         console.log('statusChangeCallback');
+         console.log(response);
+         if (response.status === 'connected') {
+           // Logged into your app and Facebook.
+           testAPI();
+         } else if (response.status === 'not_authorized') {
+           // The person is logged into Facebook, but not your app.
+           document.getElementById('status').innerHTML = 'Please log ' +
+             'into this app.';
+         } else {
+           // The person is not logged into Facebook, so we're not sure if
+           // they are logged into this app or not.
+           document.getElementById('status').innerHTML = 'Please log ' +
+             'into Facebook.';
+         }
+       }
+
+       // This function is called when someone finishes with the Login
+       // Button.  See the onlogin handler attached to it in the sample
+       // code below.
+       function checkLoginState() {
+         FB.getLoginStatus(function(response) {
+           statusChangeCallback(response);
+         });
+
+         FB.getLoginStatus(function(response) {
+           statusChangeCallback(response);
+         });
+       }
+
+       // Here we run a very simple test of the Graph API after login is
+       // successful.  See statusChangeCallback() for when this call is made.
+       function testAPI() {
+         console.log('Welcome!  Fetching your information.... ');
+         FB.api('/me', function(response) {
+           console.log('Successful login for: ' + response.name);
+           document.getElementById('status').innerHTML =
+             'Thanks for logging in, ' + response.name + '!';
+         });
+         // FB.api('/me/feed', 'post', {message: 'Hello, world!'});
+       }
+
+       var product_info = {{product_info}};
+       var url = product_info[image];
+       var caption = product_info[title];
+
+       function postProduct() {
+         FB.api('745411662282429', ‘photos’, { url: url, caption: caption}, function(response) {
+            if (!response || response.error) {
+              alert('Error occured');
+            } else {
+              alert('Post ID: ' + response.id);
+            }
+          });
+       }
+
+  </script>
   <body>
+      <fb:login-button scope="public_profile,email" onlogin="checkLoginState();" size='xlarge'></fb:login-button>
+
+      <!-- <div class="fb-login-button" data-max-rows="1" data-size="medium" data-show-faces="false" data-auto-logout-link="false"></div> -->
+
+      <div id="status">
+      </div>
+
+      <table border = 1>
+         {% for key, value in product_info.iteritems() %}
+            <tr>
+               <th> {{ key }} </th>
+               <td> {{ value }} </td>
+            </tr>
+         {% endfor %}
+      </table>
+
+
         <div class="container-fluid">
           <div class="row-fluid">
             <div class="span4">
                <img id="productImg" src="pics/laundry.jpg" height="100%"/>
             </div>
             <div class="span8">
-              <h3>Tide Original Scent HE Turbo Clean Liquid Laundry Detergent, 50 Fl Oz (32 Loads), 2 Count</h3>
+              <h3></h3>
               <br>
               <p><b>Price: </b> $10.77 </p>
               <p><b>Price per Unit: </b> $5.38 </p>
@@ -33,47 +129,21 @@
           <div class="form-group row">
             <label for="inputEmail3" class="col-sm-2 col-form-label">Email</label>
             <div class="col-sm-10">
-              <input type="email" class="form-control" id="inputEmail3" placeholder="Email">
+              <input type="email" class="form-control" id="inputEmail3" placeholder="smay@wellesley.edu">
             </div>
           </div>
           <div class="form-group row">
-            <label for="inputPassword3" class="col-sm-2 col-form-label">Password</label>
+            <label for="inputPassword3" class="col-sm-2 col-form-label">Venmo Handle</label>
             <div class="col-sm-10">
-              <input type="password" class="form-control" id="inputPassword3" placeholder="Password">
+              <input type="password" class="form-control" id="inputPassword3" placeholder="smaymay-3">
             </div>
           </div>
-          <fieldset class="form-group row">
-            <legend class="col-form-legend col-sm-2">Radios</legend>
-            <div class="col-sm-10">
-              <div class="form-check">
-                <label class="form-check-label">
-                  <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios1" value="option1" checked>
-                  Option one is this and that&mdash;be sure to include why it's great
-                </label>
-              </div>
-              <div class="form-check">
-                <label class="form-check-label">
-                  <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios2" value="option2">
-                  Option two can be something else and selecting it will deselect option one
-                </label>
-              </div>
-              <div class="form-check disabled">
-                <label class="form-check-label">
-                  <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios3" value="option3" disabled>
-                  Option three is disabled
-                </label>
-              </div>
-            </div>
-          </fieldset>
           <div class="form-group row">
             <div class="form-group">
-              <label for="exampleSelect1">Example select</label>
+              <label for="exampleSelect1">How many portions do you want to commit to?</label>
               <select class="form-control" id="exampleSelect1">
                 <option>1</option>
                 <option>2</option>
-                <option>3</option>
-                <option>4</option>
-                <option>5</option>
               </select>
             </div>
             <label class="col-sm-2">Checkbox</label>
@@ -87,7 +157,7 @@
           </div>
           <div class="form-group row">
             <div class="offset-sm-2 col-sm-10">
-              <button type="submit" class="btn btn-primary">Sign in</button>
+              <button type="submit" class="btn btn-primary">Submit</button>
             </div>
           </div>
         </form>

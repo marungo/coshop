@@ -19,10 +19,27 @@ APP = flask.Flask(__name__)
 # db = SQLAlchemy(APP)
 
 def load_static_sites(path):
-	for f in os.listdir(os.getcwd() + '/' + path):
+	""" Returns a dictionary of form {asin: {productinfo dict}} for a set of
+	static product html files in a given directory
+	"""
+	products = {}
+	f_path = os.getcwd() + '/' + path
+
+	for f in os.listdir(f_path):
 		if f.endswith('.htm') or f.endswith('html'):
-			soup = BeautifulSoup(f, 'html.parser')
-			build_product(soup)
+
+			with open(f_path + '/' + f, 'rU') as f_open:
+				soup = BeautifulSoup(f_open, 'html.parser')
+				text = ''.join(f_open.readlines())
+
+			# get Asin ID
+			r = re.compile("(?<=\"currentAsin\" : ).*\"")
+			asin = r.findall(text)[0]
+
+			# get product info
+			products[asin] = build_product(soup)
+	return products
+
 
 def build_product(soup):
 	# product = {}

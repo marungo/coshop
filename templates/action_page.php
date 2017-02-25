@@ -51,7 +51,8 @@ define("Access_Key_ID", "AKIAILT6XJREK4ITJJZA");
 define("Associate_tag", "coshopsmaymng-20");
 
 
-$Signature = exec('python getSignature.py', $output)
+// return value is status: probably a 0
+$return_val = exec('python getSignature.py', $Signature)
 
 ItemLookup($ItemId, $Signature);
 

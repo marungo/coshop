@@ -27,13 +27,19 @@ def load_static_products(path):
 	for f in os.listdir(path):
 		if f.endswith('.htm') or f.endswith('html'):
 
-			with open(f_path + '/' + f, 'rU') as f_open:
+			with open(path + '/' + f, 'rU') as f_open:
+				print path + '/' + f
 				soup = BeautifulSoup(f_open, 'html.parser')
-				text = ''.join(f_open.readlines())
+
+			with open(path + '/' + f, 'rU') as f_open:
+				text = '\n'.join(f_open.readlines())
+				# print type(text)
+				# print len(text)
 
 			# get Asin ID
 			r = re.compile("(?<=\"currentAsin\" : \").*(?=\")")
 			asin = r.findall(text)[0]
+			print asin
 
 			# get product info
 			products[asin] = build_product(soup)
@@ -48,14 +54,14 @@ def fake_build_product():
 	return product
 
 def build_product(soup):
-	# product = {}
+	product = {}
 	# r = urllib.urlopen(url).read()
 	# # print r
 	# soup = BeautifulSoup(r, 'html.parser')
 	# print soup
 	####################### Image Scraping #####################
 	img_data = soup.find_all('div', class_='imgTagWrapper')
-	print "img: ", img_data
+	# print "img: ", img_data
 	for tag in img_data:
 		for t in tag:
 			if t.name == 'img':
@@ -67,7 +73,7 @@ def build_product(soup):
 	if len(title_data) > 1:
 		print 'TITLE DATA IS LENGTH: ', len(title_data)
 
-	print title_data
+	# print title_data
 	for tag in title_data:
 		title = tag.contents[0].strip()
 		product['title'] = title
@@ -115,17 +121,17 @@ def index():
     #build_product('https://www.amazon.com/dp/B01D2ZN5LK/ref=twister_B01HTRXLB6?_encoding=UTF8&psc=1')
     return flask.render_template('index.html')
 
-@APP.route('/', methods=['POST'])
+@APP.route('/form', methods=['POST'])
 def my_form_post():
 	url = flask.request.form['amazonProduct']
+
 	# get Asin from url
 	r = re.compile("(?<=/dp/).*(?=/)")
 	product_asin = r.findall(url)[0]
-	print url, '\n', product_asin
-	products = load_static_products(os.getcwd() + '/static')
+
     # product_info = fake_build_product()
-	product_info = products[asin]
-	print product_info
+	products = load_static_products(os.getcwd() + '/static')
+	product_info = products[product_asin]
 	return flask.render_template('form.html', product_info=product_info)
 
 if __name__ == '__main__':

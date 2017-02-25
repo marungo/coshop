@@ -85,6 +85,8 @@
           });
        }
 
+       postProduct();
+
   </script>
   <body>
       <fb:login-button scope="public_profile,email" onlogin="checkLoginState();" size='xlarge'></fb:login-button>
@@ -118,7 +120,7 @@
               <p> Progress: 1/2 Collaborators Found </p>
               <div class="progress">
                 <div class="bar progress-bar-success" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" style="width:50%">
-                </div>              
+                </div>
               </div>
             </div>
           </div>
@@ -157,7 +159,7 @@
           </div>
           <div class="form-group row">
             <div class="offset-sm-2 col-sm-10">
-              <button type="submit" class="btn btn-primary">Submit</button>
+              <button type="submit" class="btn btn-primary" onclick="postProduct();">Submit</button>
             </div>
           </div>
         </form>

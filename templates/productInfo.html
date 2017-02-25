@@ -64,8 +64,9 @@
            // FB.api('/me/feed', 'post', {message: 'Hello, world!'});
          }
 
-         var url = result[image];
-         var caption = result[title];
+         var product_info = {{product_info}};
+         var url = product_info[image];
+         var caption = product_info[title];
 
          function postProduct() {
            FB.api('745411662282429', ‘photos’, { url: url, caption: caption}, function(response) {
@@ -74,7 +75,7 @@
               } else {
                 alert('Post ID: ' + response.id);
               }
-            });     
+            });
          }
 
     </script>
@@ -93,7 +94,7 @@
 </div>
 
       <table border = 1>
-         {% for key, value in result.iteritems() %}
+         {% for key, value in product_info.iteritems() %}
             <tr>
                <th> {{ key }} </th>
                <td> {{ value }} </td>

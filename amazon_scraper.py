@@ -1,17 +1,29 @@
 from bs4 import BeautifulSoup
 import urllib
 import re
+import os
 
 #example
-products = ['https://www.amazon.com/Highlands-Argyle-Mens-Golf-Collection/dp/B00EDQW9G0/ref=sr_1_50?ie=UTF8&qid=1486852744&sr=8-50-spons&keywords=socks&psc=1',
-			'https://www.amazon.com/Annies-Macaroni-Cheese-Microwave-Cheddar/dp/B00D7D1Y7U/ref=sr_1_1?ie=UTF8&qid=1486850821&sr=8-1-spons&keywords=annie%27s+mac+and+cheese&psc=1',
-			'https://www.amazon.com/dp/B00RNEBB90/ref=twister_B00RNEBB6S?_encoding=UTF8&th=1',
-			'https://www.amazon.com/dp/B01D2ZN5LK/ref=twister_B01HTRXLB6?_encoding=UTF8&psc=1']
+# products = ['https://www.amazon.com/Highlands-Argyle-Mens-Golf-Collection/dp/B00EDQW9G0/ref=sr_1_50?ie=UTF8&qid=1486852744&sr=8-50-spons&keywords=socks&psc=1',
+# 			'https://www.amazon.com/Annies-Macaroni-Cheese-Microwave-Cheddar/dp/B00D7D1Y7U/ref=sr_1_1?ie=UTF8&qid=1486850821&sr=8-1-spons&keywords=annie%27s+mac+and+cheese&psc=1',
+# 			'https://www.amazon.com/dp/B00RNEBB90/ref=twister_B00RNEBB6S?_encoding=UTF8&th=1',
+# 			'https://www.amazon.com/dp/B01D2ZN5LK/ref=twister_B01HTRXLB6?_encoding=UTF8&psc=1']
 
-def build_product(url):
-	product = {}
+def load_static_sites(path):
+	for f in os.listdir(os.getcwd() + '/' + path):
+		if f.endswith('.htm') or f.endswith('html'):
+			soup = BeautifulSoup(f, 'html.parser')
+			build_product(soup)
+
+
+
+def load_site_url(url):
 	r = urllib.urlopen(url).read()
 	soup = BeautifulSoup(r, 'html.parser')
+	return soup
+
+def build_product(soup):
+	product = {}
 
 	####################### Image Scraping #####################
 	img_data = soup.find_all('div', class_='imgTagWrapper')
@@ -24,10 +36,10 @@ def build_product(url):
 
 	####################### Title Scraping #####################
 	title_data = soup.find_all('span', id='productTitle')
-	
+
 	if len(title_data) > 1:
 		print 'TITLE DATA IS LENGTH: ', len(title_data)
-	
+
 	for tag in title_data:
 		title = tag.contents[0].strip()
 		product['title'] = title
@@ -68,5 +80,7 @@ def build_product(url):
 	####################### END Price Scraping #####################
 	return product
 
-for url in products:
-	print build_product(url)
+
+if __name__ == '__main__':
+	for url in products:
+		print build_product(url)

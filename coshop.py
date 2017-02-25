@@ -18,12 +18,18 @@ APP = flask.Flask(__name__)
 # APP.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://localhost/maryruthngo'
 # db = SQLAlchemy(APP)
 
-def build_product(url):
-	product = {}
-	r = urllib.urlopen(url).read()
-	# print r
-	soup = BeautifulSoup(r, 'html.parser')
-	print soup
+def load_static_sites(path):
+	for f in os.listdir(os.getcwd() + '/' + path):
+		if f.endswith('.htm') or f.endswith('html'):
+			soup = BeautifulSoup(f, 'html.parser')
+			build_product(soup)
+
+def build_product(soup):
+	# product = {}
+	# r = urllib.urlopen(url).read()
+	# # print r
+	# soup = BeautifulSoup(r, 'html.parser')
+	# print soup
 	####################### Image Scraping #####################
 	img_data = soup.find_all('div', class_='imgTagWrapper')
 	print "img: ", img_data
@@ -79,12 +85,13 @@ def build_product(url):
 	####################### END Price Scraping #####################
 	return product
 
-@APP.route('/')
-def index():
-    """ Displays the index page accessible at '/'
-    """
-    build_product('https://www.amazon.com/dp/B01D2ZN5LK/ref=twister_B01HTRXLB6?_encoding=UTF8&psc=1')
-    return flask.render_template('index.html')
+# ????? why is this here
+# @APP.route('/')
+# def index():
+#     """ Displays the index page accessible at '/'
+#     """
+#     build_product('https://www.amazon.com/dp/B01D2ZN5LK/ref=twister_B01HTRXLB6?_encoding=UTF8&psc=1')
+#     return flask.render_template('index.html')
 
 
 @APP.route('/', methods=['POST'])
@@ -94,7 +101,7 @@ def my_form_post():
     print url
     product_info = build_product(url)
     print product_info
-    return flask.render_template('productInfo.html', result=product_info)
+    return flask.render_template('productInfo.html', product_info=product_info)
 
 if __name__ == '__main__':
     APP.debug=False

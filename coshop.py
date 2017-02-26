@@ -2,7 +2,7 @@
 
 import flask
 from flask import request
-#from flask_sqlalchemy import SQLAlchemy
+from flask_sqlalchemy import SQLAlchemy
 
 import os
 from bs4 import BeautifulSoup

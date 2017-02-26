@@ -2,21 +2,73 @@
 
 import flask
 from flask import request
-#from flask_sqlalchemy import SQLAlchemy
+from flask_sqlalchemy import SQLAlchemy
 
 import os
 from bs4 import BeautifulSoup
 import urllib
 import re
 
+#coshop db
+# import coshopdb
+
 
 # Create the application.
 APP = flask.Flask(__name__)
+APP.config['SQLALCHEMY_DATABASE_URI'] = 'postgres://zkuzqmqystamvh:972956f846e943664bf64b437c0628f9518dda2d1616abd7f053a3bcfe373bf8@ec2-184-72-249-88.compute-1.amazonaws.com:5432/da1iad07bev1ji'
+db = SQLAlchemy(APP)
+
+
+commits = db.Table('commits',
+	db.Column('user_id', db.Integer, db.ForeignKey('user.id')),
+	db.Column('prod_id', db.Integer, db.ForeignKey('product.asin'))
+)
+
+class User(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(80))
+    email = db.Column(db.String(120), unique=True)
+    # products = db.relationship('Product', secondary=commits, 
+    # 				backref=db.backref('user',lazy='select'), lazy='select')
+
+    def __init__(self, name, email):
+        self.name = name
+        self.email = email
+
+    def __repr__(self):
+        return '<Name %r>' % self.name
+
+
+class Product(db.Model):
+    asin = db.Column(db.Integer, primary_key=True)
+    title = db.Column(db.String(200))
+    price = db.Column(db.String(10))
+    unit_price = db.Column(db.String(10))
+    pack_of = db.Column(db.String(10))
+    # users = db.relationship('User', backref=db.backref('product',
+    # 							lazy='dynamic'))
+
+
+    def __init__(self, title, price, pack_of):
+        self.title = title
+        self.price = price
+        self.pack_of = pack_of
+
+    def __repr__(self):
+        return '<Title %r>' % self.title
 
 #APP.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://localhost/maryruthngo'
 #db = SQLAlchemy(APP)
 # APP.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://localhost/maryruthngo'
 # db = SQLAlchemy(APP)
+
+def add_product_to_db(product):
+	prod = Product(asin=product['asin'], title=product['title'],
+					price=product['price'][0], unit_price=product['unit_price'],
+					pack_of=product['pack_of'])
+	db.session.add(prod)
+	db.session.commit()
+
 
 def load_static_products(path):
 	""" Returns a dictionary of form {asin: {productinfo dict}} for a set of
@@ -43,15 +95,18 @@ def load_static_products(path):
 
 			# get product info
 			products[asin] = build_product(soup)
+			products[asin]['asin'] = asin
+			products[asin]['portions_available'] = 0
+			products[asin]['num_collaborators'] = 0
 	return products
 
 
-def fake_build_product():
-	product = {'image': 'pics/laundry.jpg',
-			   'title': 'Tide Original Scent HE Turbo Clean Liquid Laundry Detergent, 50 Fl Oz (32 Loads), 2 Count',
-			   'price': 10.77,
-			   'pack_of': 2}
-	return product
+# def fake_build_product():
+# 	product = {'image': 'pics/laundry.jpg',
+# 			   'title': 'Tide Original Scent HE Turbo Clean Liquid Laundry Detergent, 50 Fl Oz (32 Loads), 2 Count',
+# 			   'price': 10.77,
+# 			   'pack_of': 2}
+# 	return product
 
 def build_product(soup):
 	product = {}
@@ -86,7 +141,11 @@ def build_product(soup):
 	else:
 		# clean result
 		pack_of = pack_of[1].split(")")[0].strip().split(' ')[0]
-	# print pack_of
+
+	#hard-code one small bug away:
+	if pack_of == 'three':
+		pack_of = '3'
+
 	product['pack_of'] = str(pack_of)
 
 	####################### Price Scraping #####################
@@ -110,8 +169,10 @@ def build_product(soup):
 				price.append(s.contents[0].strip())
 			# print 'PRIME PRODUCT no sale: ', ' '.join(price)
 
+
 	product['price'] = price
-	####################### END Price Scraping #####################
+	product['unit_price'] = '${:,.2f}'.format(float(price[0].split('$')[1])/float(pack_of))
+	####################### END Price Scraping ####################
 	return product
 
 @APP.route('/')
@@ -121,7 +182,6 @@ def index():
     #build_product('https://www.amazon.com/dp/B01D2ZN5LK/ref=twister_B01HTRXLB6?_encoding=UTF8&psc=1')
     return flask.render_template('index.html')
 
-
 @APP.before_request
 def get_products():
 	global products
@@ -129,6 +189,7 @@ def get_products():
 
 @APP.route('/form', methods=['GET', 'POST'])
 def my_form_post():
+	print 'hello'
 	url = flask.request.form['amazonProduct']
 	# get Asin from url
 	r = re.compile("(?<=/dp/).*(?=/)")
@@ -139,6 +200,13 @@ def my_form_post():
 		product_info = products[product_asin]
 	except KeyError:
 		product_info = products.values()[0]
+
+	#check if product is already in database
+	# prod = Product.query.all()
+	# if prod is None:
+		# new_prod = Product()
+
+
 	return flask.render_template('form.html', product_info=product_info)
 
 @APP.route('/done', methods=['GET', 'POST'])

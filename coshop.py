@@ -12,6 +12,8 @@ import re
 
 # Create the application.
 APP = flask.Flask(__name__)
+app.config['SQLALCHEMY_DATABASE_URI'] = os.environ['DATABASE_URL']
+db = SQLAlchemy(app)
 
 #APP.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://localhost/maryruthngo'
 #db = SQLAlchemy(APP)
@@ -43,15 +45,18 @@ def load_static_products(path):
 
 			# get product info
 			products[asin] = build_product(soup)
+			products[asin]['asin'] = asin
+			products[asin]['portions_available'] = 0
+			products[asin]['num_collaborators'] = 0
 	return products
 
 
-def fake_build_product():
-	product = {'image': 'pics/laundry.jpg',
-			   'title': 'Tide Original Scent HE Turbo Clean Liquid Laundry Detergent, 50 Fl Oz (32 Loads), 2 Count',
-			   'price': 10.77,
-			   'pack_of': 2}
-	return product
+# def fake_build_product():
+# 	product = {'image': 'pics/laundry.jpg',
+# 			   'title': 'Tide Original Scent HE Turbo Clean Liquid Laundry Detergent, 50 Fl Oz (32 Loads), 2 Count',
+# 			   'price': 10.77,
+# 			   'pack_of': 2}
+# 	return product
 
 def build_product(soup):
 	product = {}
@@ -111,6 +116,7 @@ def build_product(soup):
 			# print 'PRIME PRODUCT no sale: ', ' '.join(price)
 
 	product['price'] = price
+	product['unit_price'] = price / float(pack_of)
 	####################### END Price Scraping #####################
 	return product
 

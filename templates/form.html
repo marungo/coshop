@@ -7,7 +7,7 @@
     <!-- <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen"> -->
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-    <link href="overrides.css" rel="stylesheet">
+    <!-- <link href="overrides.css" rel="stylesheet"> -->
     <style>
       .row-fluid {
           width: 100%;
@@ -15,7 +15,7 @@
       }
 
       body {
-        font-size: 20px;
+        font-size: 17px;
       }
 
       .progress .bar {
@@ -106,21 +106,21 @@
   //         });
   //      }
 
-       function postProduct() {
-         console.log('inside postProduct');
-        //  var product_info = {{product_info}};
-        //  var product_url = product_info[image];
-        //  var product_caption = product_info[title];
-         FB.api('745411662282429', 'post', { picture: 'pics/laundry.jpg', caption: 'HELLO'}, function(response) {
-            if (!response || response.error) {
-              alert('Error occured');
-            } else {
-              alert('Post ID: ' + response.id);
-            }
-          });
-       }
-       testAPI();
-       postProduct();
+       // function postProduct() {
+       //   console.log('inside postProduct');
+       //  //  var product_info = {{product_info}};
+       //  //  var product_url = product_info[image];
+       //  //  var product_caption = product_info[title];
+       //   FB.api('745411662282429', 'post', { picture: 'pics/laundry.jpg', caption: 'HELLO'}, function(response) {
+       //      if (!response || response.error) {
+       //        alert('Error occured');
+       //      } else {
+       //        alert('Post ID: ' + response.id);
+       //      }
+       //    });
+       // }
+       // testAPI();
+       // postProduct();
 
   </script>
   <body>
@@ -128,7 +128,7 @@
 
       <!-- <div class="fb-login-button" data-max-rows="1" data-size="medium" data-show-faces="false" data-auto-logout-link="false"></div> -->
 
-      <div id="status">
+  <!--     <div id="status">
       </div>
 
       <table border = 1>
@@ -138,7 +138,7 @@
                <td> {{ value }} </td>
             </tr>
          {% endfor %}
-      </table>
+      </table> -->
 
 
         <div class="container-fluid">
@@ -146,7 +146,7 @@
             <div class="span4">
                <img id="productImg" src="pics/laundry.jpg" height="100%"/>
             </div>
-            <div class="span8">
+            <div class="span7">
               <h3></h3>
               <br>
               <p><b>Price: </b> {{ product_info['price'][0] }} </p>

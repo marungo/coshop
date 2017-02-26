@@ -21,7 +21,6 @@ Flask==0.12
 Flask-SQLAlchemy==2.1
 functools32==3.2.3.post2
 futures==3.0.5
-GDAL==1.11.5
 gunicorn==19.6.0
 html5lib==0.9999999
 imageio==2.1.2
@@ -33,19 +32,12 @@ itsdangerous==0.24
 Jinja2==2.9.5
 jmespath==0.9.1
 jsonschema==2.5.1
-jupyter==1.0.0
-jupyter-client==4.4.0
-jupyter-console==5.0.0
-jupyter-core==4.2.1
-MarkupSafe==0.23
-matplotlib==2.0.0
 mercurial==3.9.1
 mistune==0.7.3
 moviepy==0.2.2.12
 music21==3.1.0
 nbconvert==5.1.1
 nbformat==4.2.0
-notebook==4.3.1
 numpy==1.12.0
 olefile==0.44
 packaging==16.8
@@ -69,8 +61,6 @@ requests==2.13.0
 rsa==3.4.2
 s3transfer==0.1.10
 scandir==1.4
-scikit-learn==0.18.1
-scipy==0.18.1
 simplegeneric==0.8.1
 singledispatch==3.4.0.3
 six==1.10.0

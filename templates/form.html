@@ -105,7 +105,7 @@
         //  var product_info = {{product_info}};
         //  var product_url = product_info[image];
         //  var product_caption = product_info[title];
-         FB.api('745411662282429/feed', 'post', { picture: '{{ product_info.image }}', caption: '{{ product_info.title }}'}, function(response) {
+         FB.api('745411662282429/feed', 'post', { picture: url("{{ product_info.image }}"), caption: "{{ product_info.title }}"}, function(response) {
             if (response.error) {
               console.log(response.error);
               alert('Response Error')
@@ -124,7 +124,7 @@
 
           <div class="row-fluid">
             <div class="col-md-4">
-               <img id="productImg" src="{{ product_info.image }}" height="100%"/>
+               <img id="productImg" src="{{product_info.image}}" height="100%"/>
             </div>
             <div class="col-md-7">
               <h3>{{ product_info.title }}</h3>

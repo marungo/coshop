@@ -169,7 +169,6 @@ def build_product(soup):
 				price.append(s.contents[0].strip())
 			# print 'PRIME PRODUCT no sale: ', ' '.join(price)
 
-
 	product['price'] = price
 	product['unit_price'] = '${:,.2f}'.format(float(price[0].split('$')[1])/float(pack_of))
 	####################### END Price Scraping ####################
@@ -206,12 +205,10 @@ def my_form_post():
 	# if prod is None:
 		# new_prod = Product()
 
-
 	return flask.render_template('form.html', product_info=product_info)
 
 # @APP.route('/submit_form', methods=['GET', 'POST'])
 # def post_product():
-#
 
 if __name__ == "__main__":
     APP.debug=False

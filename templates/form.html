@@ -70,7 +70,7 @@
            // they are logged into this app or not.
            document.getElementById('status').innerHTML = 'Please log ' +
              'into Facebook.';
-             FB.login();
+             // FB.login();
          }
        }
 
@@ -87,16 +87,16 @@
          });
        }
 
-      FB.login(function(response) {
-        if (response.authResponse) {
-         console.log('Welcome!  Fetching your information.... ');
-         FB.api('/me', function(response) {
-           console.log('Good to see you, ' + response.name + '.');
-         });
-        } else {
-         console.log('User cancelled login or did not fully authorize.');
-        }
-      }, {scope: 'publish_actions,user_managed_groups'});
+      // FB.login(function(response) {
+      //   if (response.authResponse) {
+      //    console.log('Welcome!  Fetching your information.... ');
+      //    FB.api('/me', function(response) {
+      //      console.log('Good to see you, ' + response.name + '.');
+      //    });
+      //   } else {
+      //    console.log('User cancelled login or did not fully authorize.');
+      //   }
+      // }, {scope: 'publish_actions,user_managed_groups'});
 
 
        // Here we run a very simple test of the Graph API after login is
@@ -131,7 +131,7 @@
   </script>
   <body>
         <div class="container-fluid">
-          <fb:login-button scope="public_profile,email" onlogin="checkLoginState();" size='xlarge'></fb:login-button><p id='status'></p>
+          <fb:login-button scope="public_profile,email,publish_actions,user_managed_groups" onlogin="checkLoginState();" size='xlarge'></fb:login-button><p id='status'></p>
 
           <div class="row-fluid">
             <div class="col-md-4">

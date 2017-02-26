@@ -91,7 +91,11 @@ def build_product(soup):
 	else:
 		# clean result
 		pack_of = pack_of[1].split(")")[0].strip().split(' ')[0]
-	# print pack_of
+
+	#hard-code one small bug away:
+	if pack_of == 'three':
+		pack_of = '3'
+
 	product['pack_of'] = str(pack_of)
 
 	####################### Price Scraping #####################
@@ -115,9 +119,10 @@ def build_product(soup):
 				price.append(s.contents[0].strip())
 			# print 'PRIME PRODUCT no sale: ', ' '.join(price)
 
+
 	product['price'] = price
-	product['unit_price'] = int(price[0].split('$')[1]) / float(pack_of)
-	####################### END Price Scraping #####################
+	product['unit_price'] = '${:,.2f}'.format(float(price[0].split('$')[1])/float(pack_of))
+	####################### END Price Scraping ####################
 	return product
 
 @APP.route('/')

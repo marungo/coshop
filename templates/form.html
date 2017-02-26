@@ -152,7 +152,7 @@
                <img id="productImg" src="{{ product_info.image }}" height="100%"/>
             </div>
             <div class="col-md-7">
-              <h3></h3>
+              <h3>{{ product_info.title }}</h3>
               <br>
               <p><b>Price: </b> {{ product_info.price[0] }} </p>
               <p><b>Number of Portions: </b>{{  product_info.pack_of }}</p>
@@ -198,6 +198,6 @@
         </form>
       </div>
   </body>
-  <script src="http://code.jquery.com/jquery.js"></script>
+  <script type="text/javascript" src="//code.jquery.com/jquery-1.9.1.js"></script>  
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 </html>

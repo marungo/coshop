@@ -141,6 +141,11 @@ def my_form_post():
 		product_info = products.values()[0]
 	return flask.render_template('form.html', product_info=product_info)
 
+@APP.route('/done', methods=['GET', 'POST'])
+def submit_form():
+	return flask.render_template('done.html')
+
+
 # @APP.route('/submit_form', methods=['GET', 'POST'])
 # def post_product():
 #

@@ -86,6 +86,22 @@
   //         });
   //      }
 
+       function postProduct() {
+         console.log('inside postProduct');
+        //  var product_info = {{product_info}};
+        //  var product_url = product_info[image];
+        //  var product_caption = product_info[title];
+         FB.api('745411662282429', 'post', { picture: 'pics/laundry.jpg', caption: 'HELLO'}, function(response) {
+            if (!response || response.error) {
+              alert('Error occured');
+            } else {
+              alert('Post ID: ' + response.id);
+            }
+          });
+       }
+       testAPI();
+       postProduct();
+
   </script>
   <body>
       <!-- <fb:login-button scope="public_profile,email" onlogin="checkLoginState();" size='xlarge'></fb:login-button> -->

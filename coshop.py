@@ -121,20 +121,30 @@ def index():
     #build_product('https://www.amazon.com/dp/B01D2ZN5LK/ref=twister_B01HTRXLB6?_encoding=UTF8&psc=1')
     return flask.render_template('index.html')
 
-@APP.route('/', methods=['GET', 'POST'])
+@APP.before_request
+def get_products():
+	global products
+	products = load_static_products(os.getcwd() + '/static')
+
+@APP.route('/form', methods=['GET', 'POST'])
 def my_form_post():
 	print 'hello'
 	url = flask.request.form['amazonProduct']
-
 	# get Asin from url
 	r = re.compile("(?<=/dp/).*(?=/)")
 	product_asin = r.findall(url)[0]
 
     # product_info = fake_build_product()
-	products = load_static_products(os.getcwd() + '/static')
-	product_info = products[product_asin]
+	try:
+		product_info = products[product_asin]
+	except KeyError:
+		product_info = products.values()[0]
 	return flask.render_template('form.html', product_info=product_info)
 
-if __name__ == '__main__':
+# @APP.route('/submit_form', methods=['GET', 'POST'])
+# def post_product():
+#
+
+if __name__ == "__main__":
     APP.debug=False
     APP.run()

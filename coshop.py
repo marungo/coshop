@@ -12,7 +12,7 @@ import re
 
 # Create the application.
 APP = flask.Flask(__name__)
-APP.config['SQLALCHEMY_DATABASE_URI'] = os.environ['DATABASE_URL']
+APP.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql-flat-48765'
 db = SQLAlchemy(APP)
 
 #APP.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://localhost/maryruthngo'
@@ -116,7 +116,7 @@ def build_product(soup):
 			# print 'PRIME PRODUCT no sale: ', ' '.join(price)
 
 	product['price'] = price
-	product['unit_price'] = price / float(pack_of)
+	product['unit_price'] = int(price) / float(pack_of)
 	####################### END Price Scraping #####################
 	return product
 

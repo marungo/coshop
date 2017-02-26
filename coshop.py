@@ -88,6 +88,7 @@ def my_form_post():
 	product_asin = r.findall(url)[0]
 		
 	products = load_products.products
+	
 	try:
 		product_info = products[product_asin]
 	except KeyError:

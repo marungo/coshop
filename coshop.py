@@ -121,8 +121,9 @@ def index():
     #build_product('https://www.amazon.com/dp/B01D2ZN5LK/ref=twister_B01HTRXLB6?_encoding=UTF8&psc=1')
     return flask.render_template('index.html')
 
-@APP.route('/form', methods=['GET'])
+@APP.route('/', methods=['GET', 'POST'])
 def my_form_post():
+	print 'hello'
 	url = flask.request.form['amazonProduct']
 
 	# get Asin from url

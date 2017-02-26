@@ -9,6 +9,9 @@ from bs4 import BeautifulSoup
 import urllib
 import re
 
+#coshop db
+import coshopdb
+
 
 # Create the application.
 APP = flask.Flask(__name__)
@@ -19,6 +22,14 @@ db = SQLAlchemy(APP)
 #db = SQLAlchemy(APP)
 # APP.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://localhost/maryruthngo'
 # db = SQLAlchemy(APP)
+
+def add_product_to_db(product):
+	prod = Product(asin=product['asin'], title=product['title'],/
+					price=product['price'][0], unit_price=product['unit_price'],/
+					pack_of=product['pack_of'])
+	db.session.add(prod)
+	db.session.commit()
+
 
 def load_static_products(path):
 	""" Returns a dictionary of form {asin: {productinfo dict}} for a set of
@@ -150,6 +161,13 @@ def my_form_post():
 		product_info = products[product_asin]
 	except KeyError:
 		product_info = products.values()[0]
+
+	#check if product is already in database
+	prod = Product.query.get(asin=product_info['asin'])
+	if prod is None:
+		new_prod = Product()
+
+
 	return flask.render_template('form.html', product_info=product_info)
 
 # @APP.route('/submit_form', methods=['GET', 'POST'])

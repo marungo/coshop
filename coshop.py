@@ -12,7 +12,9 @@ import re
 
 # Create the application.
 APP = flask.Flask(__name__)
-APP.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql-flat-48765'
+APP.config['SQLALCHEMY_DATABASE_URI'] = 'postgres://zkuzqmqystamvh:972956f846e943664bf64b437' + 
+										'c0628f9518dda2d1616abd7f053a3bcfe373bf8@ec2-184-72-249-' + 
+										'88.compute-1.amazonaws.com:5432/da1iad07bev1ji'
 db = SQLAlchemy(APP)
 
 #APP.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://localhost/maryruthngo'

@@ -97,9 +97,9 @@
          // FB.api('/me/feed', 'post', {message: 'Hello, world!'});
        }
 
-       var product_info = {{product_info}};
-       var url = product_info[image];
-       var caption = product_info[title];
+       // var product_info = {{product_info}};
+       var url = {{ product_info.image }}.toString();
+       var caption = {{ product_info.title }}.toString();
 
        function postProduct() {
          FB.api('745411662282429', ‘photos’, { url: url, caption: caption}, function(response) {
@@ -129,22 +129,10 @@
 
   </script>
   <body>
-      <!-- <fb:login-button scope="public_profile,email" onlogin="checkLoginState();" size='xlarge'></fb:login-button> -->
+      <fb:login-button scope="public_profile,email" onlogin="checkLoginState();" size='xlarge'></fb:login-button>
 
-      <!-- <div class="fb-login-button" data-max-rows="1" data-size="medium" data-show-faces="false" data-auto-logout-link="false"></div> -->
-
-<!--       <div id="status">
-      </div>
-
-      <table border = 1>
-         {% for key, value in product_info.iteritems() %}
-            <tr>
-               <th> {{ key }} </th>
-               <td> {{ value }} </td>
-            </tr>
-         {% endfor %}
-      </table> -->
-
+<!--       <div class="fb-login-button" data-max-rows="1" data-size="medium" data-show-faces="false" data-auto-logout-link="false"></div>
+ -->
 
         <div class="container-fluid">
           <div class="row-fluid">
@@ -183,7 +171,7 @@
           </div>
           <div class="form-group row">
             <div class="form-group">
-              <label class="col-sm-9" for="exampleSelect1">How many portions do you want to commit to?</label>
+              <label class="col-sm-9" for="numPortions">How many portions do you want to commit to?</label>
               <select class="col-sm-2 form-control" id="numPortions">
                 <option>1</option>
                 <option>2</option>

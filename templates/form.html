@@ -72,18 +72,29 @@
          }
        }
 
-       // This function is called when someone finishes with the Login
-       // Button.  See the onlogin handler attached to it in the sample
-       // code below.
-       function checkLoginState() {
-         FB.getLoginStatus(function(response) {
-           statusChangeCallback(response);
-         });
+       // // This function is called when someone finishes with the Login
+       // // Button.  See the onlogin handler attached to it in the sample
+       // // code below.
+       // function checkLoginState() {
+       //   FB.getLoginStatus(function(response) {
+       //     statusChangeCallback(response);
+       //   });
 
-         FB.getLoginStatus(function(response) {
-           statusChangeCallback(response);
-         });
-       }
+       //   FB.getLoginStatus(function(response) {
+       //     statusChangeCallback(response);
+       //   });
+       // }
+
+       FB.login(function(response) {
+		    if (response.authResponse) {
+		     console.log('Welcome!  Fetching your information.... ');
+		     FB.api('/me', function(response) {
+		       console.log('Good to see you, ' + response.name + '.');
+		     });
+		    } else {
+		     console.log('User cancelled login or did not fully authorize.');
+		    }
+		});
 
        // Here we run a very simple test of the Graph API after login is
        // successful.  See statusChangeCallback() for when this call is made.
@@ -120,8 +131,8 @@
             if (!response) {
               alert('No response');
             } else if (response.error) {
-            	console.log(response.error);
-            	alert('Error occurred:', (response.error).toString());
+            	console.log(response.error.code);
+            	alert('Error occurred:', (response.error.code).toString());
             } else {
               alert('Post ID: ' + response.id);
             }

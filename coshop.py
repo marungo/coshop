@@ -116,7 +116,7 @@ def build_product(soup):
 			# print 'PRIME PRODUCT no sale: ', ' '.join(price)
 
 	product['price'] = price
-	product['unit_price'] = int(price) / float(pack_of)
+	product['unit_price'] = int(price[0]) / float(pack_of)
 	####################### END Price Scraping #####################
 	return product
 

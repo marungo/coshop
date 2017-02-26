@@ -117,25 +117,21 @@
         //  var product_url = product_info[image];
         //  var product_caption = product_info[title];
          FB.api('745411662282429', 'post', { picture: 'pics/laundry.jpg', caption: 'HELLO'}, function(response) {
-            if (!response || response.error) {
-              alert('Error occured');
+            if (response.error) {
+              console.log(response.error);
+              alert('Response Error')
+            } else if (!response) {
+              alert('No response');
             } else {
               alert('Post ID: ' + response.id);
             }
           });
        }
-       // testAPI();
-       // postProduct();
 
   </script>
   <body>
-
-<!--       <div class="fb-login-button" data-max-rows="1" data-size="medium" data-show-faces="false" data-auto-logout-link="false"></div>
- -->
-
         <div class="container-fluid">
-          <fb:login-button scope="public_profile,email" onlogin="checkLoginState();" size='xlarge'></fb:login-button>
-          <p id='status'></p>
+          <fb:login-button scope="public_profile,email" onlogin="checkLoginState();" size='xlarge'></fb:login-button><p id='status'></p>
 
           <div class="row-fluid">
             <div class="col-md-4">

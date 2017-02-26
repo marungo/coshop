@@ -1,11 +1,8 @@
-import flask
-from flask import request
-from flask_sqlalchemy import SQLAlchemy
-
 import os
 from bs4 import BeautifulSoup
 import urllib
 import re
+
 
 def load_static_products(path):
 	""" Returns a dictionary of form {asin: {productinfo dict}} for a set of
@@ -51,8 +48,12 @@ def build_product(soup):
 		for t in tag:
 			if t.name == 'img':
 				# print t['src']
-				product['image'] = t['src']
+				img_url = str(t['data-old-hires'])
 
+	product['image'] = img_url
+	if len(img_url) == 0:
+		product['image'] = 'https://images-na.ssl-images-amazon.com/images/I/51aijCrlZvL.jpg'
+	
 	####################### Title Scraping #####################
 	title_data = soup.find_all('span', id='productTitle')
 	if len(title_data) > 1:

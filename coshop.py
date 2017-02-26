@@ -19,7 +19,7 @@ APP = flask.Flask(__name__)
 APP.config['SQLALCHEMY_DATABASE_URI'] = 'postgres://zkuzqmqystamvh:972956f846e943664bf64b437c0628f9518dda2d1616abd7f053a3bcfe373bf8@ec2-184-72-249-88.compute-1.amazonaws.com:5432/da1iad07bev1ji'
 db = SQLAlchemy(APP)
 
-
+############ DATABASE ###############
 commits = db.Table('commits',
 	db.Column('user_id', db.Integer, db.ForeignKey('user.id')),
 	db.Column('prod_id', db.Integer, db.ForeignKey('product.asin'))
@@ -58,11 +58,6 @@ class Product(db.Model):
     def __repr__(self):
         return '<Title %r>' % self.title
 
-#APP.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://localhost/maryruthngo'
-#db = SQLAlchemy(APP)
-# APP.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://localhost/maryruthngo'
-# db = SQLAlchemy(APP)
-
 def add_product_to_db(product):
 	prod = Product(asin=product['asin'], title=product['title'],
 					price=product['price'][0], unit_price=product['unit_price'],
@@ -70,13 +65,7 @@ def add_product_to_db(product):
 	db.session.add(prod)
 	db.session.commit()
 
-
-# def fake_build_product():
-# 	product = {'image': 'pics/laundry.jpg',
-# 			   'title': 'Tide Original Scent HE Turbo Clean Liquid Laundry Detergent, 50 Fl Oz (32 Loads), 2 Count',
-# 			   'price': 10.77,
-# 			   'pack_of': 2}
-# 	return product
+############ END DATABASE ###############
 
 
 @APP.route('/')
@@ -99,12 +88,14 @@ def my_form_post():
 	product_asin = r.findall(url)[0]
 		
 	products = load_products.products
-    # product_info = fake_build_product()
 	try:
 		product_info = products[product_asin]
 	except KeyError:
 		product_info = products.values()[0]
 
+	for key in products:
+		print products[key]
+	# print products['image']
 	#check if product is already in database
 	# prod = Product.query.all()
 	# if prod is None:
@@ -115,10 +106,6 @@ def my_form_post():
 @APP.route('/done', methods=['GET', 'POST'])
 def submit_form():
 	return flask.render_template('done.html')
-
-
-# @APP.route('/submit_form', methods=['GET', 'POST'])
-# def post_product():
 
 if __name__ == "__main__":
     APP.debug=False

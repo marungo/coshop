@@ -120,7 +120,7 @@
             if (!response) {
               alert('No response');
             } else if (response.error) {
-            	alert('Error occurred');
+            	alert('Error occurred:', response.error);
             } else {
               alert('Post ID: ' + response.id);
             }

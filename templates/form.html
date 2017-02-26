@@ -44,13 +44,13 @@
         FB.AppEvents.logPageView();
       };
 
-      (function(d, s, id) {
+      (function(d, s, id){
          var js, fjs = d.getElementsByTagName(s)[0];
          if (d.getElementById(id)) {return;}
          js = d.createElement(s); js.id = id;
          js.src = "//connect.facebook.net/en_US/sdk.js";
          fjs.parentNode.insertBefore(js, fjs);
-       } (document, 'script', 'facebook-jssdk'));
+       }(document, 'script', 'facebook-jssdk'));
 
 
        // This is called with the results from from FB.getLoginStatus().
@@ -109,18 +109,18 @@
        }
 
        // var product_info = {{product_info}};
-       // var url = product_info.image;
-       // var caption = ;
+      //  var url = {{ product_info.image }}.toString();
+      //  var caption = {{ product_info.title }}.toString();
 
-       // function postProduct() {
-       //   FB.api('745411662282429', ‘photos’, { url: url, caption: caption}, function(response) {
-       //      if (!response || response.error) {
-       //        alert('Error occured');
-       //      } else {
-       //        alert('Post ID: ' + response.id);
-       //      }
-       //    });
-       // }
+      //  function postProduct() {
+      //    FB.api('745411662282429', ‘photos’, { url: url, caption: caption}, function(response) {
+      //       if (!response || response.error) {
+      //         alert('Error occured');
+      //       } else {
+      //         alert('Post ID: ' + response.id);
+      //       }
+      //     });
+      //  }
 
        function postProduct() {
          console.log('inside postProduct');
@@ -136,42 +136,36 @@
             } else {
               alert('Post ID: ' + response.id);
             }
-          });
-       }
-       testAPI();
-       // postProduct();
+          })
+       };
+      //  testAPI();
+      //  postProduct();
 
   </script>
   <body>
-
+      <fb:login-button scope="public_profile,email" onlogin="checkLoginState();" size='xlarge'></fb:login-button>
 
 <!--       <div class="fb-login-button" data-max-rows="1" data-size="medium" data-show-faces="false" data-auto-logout-link="false"></div>
  -->
 
         <div class="container-fluid">
-        	<!-- <div class="row-fluid"> -->
-        		<!-- <div class="col-lg-2"> -->
-        			<fb:login-button scope="public_profile,email" onlogin="checkLoginState();" size='xlarge'></fb:login-button>
-        			<p id='status'></p>
-        		<!-- </div> -->
-        	<!-- </div> -->
-          	<div class="row-fluid">
-	            <div class="col-md-4">
-	               <img id="productImg" src="{{ product_info.image }}" height="100%"/>
-	            </div>
-	            <div class="col-md-7">
-	              <h3>{{ product_info.title }}</h3>
-	              <br>
-	              <p><b>Price: </b> {{ product_info.price[0] }} </p>
-	              <p><b>Number of Portions: </b>{{  product_info.pack_of }}</p>
-	              <p><b>Price per Portion: </b> {{ product_info.unit_price }} </p>
-	              <br>
-	              <p> Progress: {{ product_info.num_collaborators }} collaborator(s), {{ product_info.portions_available }} portion(s) left </p>
-	              <div class="progress">
-	                <div class="bar progress-bar-success active" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" style="width:50%">
-	                </div>
-	            </div>
-	        </div>
+          <div class="row-fluid">
+            <div class="col-md-4">
+               <img id="productImg" src="{{ product_info.image }}" height="100%"/>
+            </div>
+            <div class="col-md-7">
+              <h3>{{ product_info.title }}</h3>
+              <br>
+              <p><b>Price: </b> {{ product_info.price[0] }} </p>
+              <p><b>Number of Portions: </b>{{  product_info.pack_of }}</p>
+              <p><b>Price per Portion: </b> {{ product_info.unit_price }} </p>
+              <br>
+              <p> Progress: {{ product_info.num_collaborators }} collaborator(s), {{ product_info.portions_available }} portion(s) left </p>
+              <div class="progress">
+                <div class="bar progress-bar-success active" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" style="width:50%">
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       <h2></h2>
@@ -195,13 +189,12 @@
               <select class="col-sm-2 form-control" id="numPortions">
                 <option>1</option>
                 <option>2</option>
-                <option>3</option>
               </select>
             </div>
           </div>
           <div class="form-group row">
             <div class="offset-sm-3 col-sm-9">
-              <button type="submit" class="btn btn-primary" onclick='postProduct();'>Submit</button>
+              <button type="submit" class="btn btn-primary" onclick="postProduct();">Submit</button>
             </div>
           </div>
         </form>

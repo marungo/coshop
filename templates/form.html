@@ -149,14 +149,14 @@
               <p> Progress: {{ product_info.num_collaborators }} collaborator(s), {{ product_info.portions_available }} portion(s) left </p>
               <div class="progress">
                 <div class="bar progress-bar-success active" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" style="width:50%">
-                </div>              
+                </div>
               </div>
             </div>
           </div>
         </div>
       <h2></h2>
       <div class="container col-md-6">
-        <form>
+        <form action="/done" method="post">
           <div class="form-group row">
             <label for="inputEmail3" class="col-sm-3 col-form-label">Email</label>
             <div class="col-sm-9">
@@ -186,6 +186,6 @@
         </form>
       </div>
   </body>
-  <script type="text/javascript" src="//code.jquery.com/jquery-1.9.1.js"></script>  
+  <script type="text/javascript" src="//code.jquery.com/jquery-1.9.1.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 </html>

@@ -2,6 +2,7 @@
 import flask
 from flask import request
 from flask_sqlalchemy import SQLAlchemy
+import re
 
 import os
 import load_products
@@ -11,9 +12,12 @@ import load_products
 APP = flask.Flask(__name__)
 APP.config['SQLALCHEMY_DATABASE_URI'] = 'postgres://zkuzqmqystamvh:972956f846e943664bf64b437c0628f9518dda2d1616abd7f053a3bcfe373bf8@ec2-184-72-249-88.compute-1.amazonaws.com:5432/da1iad07bev1ji'
 APP.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+global db
 db = SQLAlchemy(APP)
 
 import models
+from models import User
+from models import Product
 
 
 @APP.route('/')
@@ -42,8 +46,11 @@ def my_form_post():
 		product_info = products.values()[0]
 
 	#check if product is already in database
-	# prod = Product.query.all()
-	# if prod is None:
+	prod = models.Product.query.all()
+	if len(prod) > 0:
+		print prod
+	else:
+		print "PRODUCT DID NOT EXIST BEFORE"
 		# new_prod = Product()
 
 	product_info['url'] = url

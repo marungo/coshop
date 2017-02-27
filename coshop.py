@@ -46,9 +46,9 @@ def my_form_post():
 		product_info = products.values()[0]
 
 	#check if product is already in database
-	prod = models.Product.query.all()
-	if len(prod) > 0:
-		print prod
+	prods = Product.query.all()
+	if len(prods) > 0:
+		print prods
 	else:
 		print "PRODUCT DID NOT EXIST BEFORE"
 		# new_prod = Product()

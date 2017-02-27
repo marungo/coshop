@@ -79,12 +79,27 @@ def index():
 # def get_products():
 	# products = load_static_products(os.getcwd() + '/static')
 
+# @APP.route('/getasin', methods=['GET', 'POST'])
+# def index():
+#     """ Displays the index page accessible at '/'
+#     """
+#     #build_product('https://www.amazon.com/dp/B01D2ZN5LK/ref=twister_B01HTRXLB6?_encoding=UTF8&psc=1')
+#     url = flask.request.form['amazonProduct']
+# 	# get Asin from url
+# 	r = re.compile("(?<=/dp/).*(?=/)")
+# 	global product_asin
+# 	product_asin = r.findall(url)[0]
+#     return my_form_post(product_asin)
+
+
 @APP.route('/form', methods=['GET', 'POST'])
 def my_form_post():
 	print 'hello'
+
 	url = flask.request.form['amazonProduct']
 	# get Asin from url
 	r = re.compile("(?<=/dp/).*(?=/)")
+	global product_asin
 	product_asin = r.findall(url)[0]
 		
 	products = load_products.products
@@ -98,6 +113,8 @@ def my_form_post():
 	# prod = Product.query.all()
 	# if prod is None:
 		# new_prod = Product()
+
+	product_info['url'] = url
 
 	return flask.render_template('form.html', product_info=product_info)
 

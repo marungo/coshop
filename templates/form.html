@@ -109,7 +109,7 @@
         //  var product_info = {{product_info}};
         //  var product_url = product_info[image];
         //  var product_caption = product_info[title];
-         FB.api('745411662282429/feed', 'post', { link: "{{ product_info.image }}", caption: "{{ product_info.title }}"}, function(response) {
+         FB.api('745411662282429/feed', 'post', { link: "https://coshop.herokuapp.com/", picture: " {{ product_info.image }} ", message: " I just commited to a portion of this product: {{ product_info.title }}\n Go to coshop and put in this url to collaborate with me: {{ product_info.url }}"}, function(response) {
             if (response.error) {
               console.log(response.error);
               alert('Response Error')

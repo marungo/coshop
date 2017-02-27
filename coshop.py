@@ -15,9 +15,7 @@ APP.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 global db
 db = SQLAlchemy(APP)
 
-import models
-from models import User
-from models import Product
+from models import *
 
 
 @APP.route('/')
@@ -46,11 +44,15 @@ def my_form_post():
 		product_info = products.values()[0]
 
 	#check if product is already in database
-	prods = Product.query.all()
-	if len(prods) > 0:
-		print prods
+	prod = Product.query.get(product_asin)
+	if prod is not None:
+		print prod
 	else:
-		print "PRODUCT DID NOT EXIST BEFORE"
+		prod = Product(product_asin, product_info['title'], \
+			product_info['price'][0], product_info['unit_price'],\
+			product_info['pack_of'], url)
+		db.session.add(prod)
+		db.session.commit()
 		# new_prod = Product()
 
 	product_info['url'] = url

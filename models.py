@@ -32,16 +32,18 @@ class Product(db.Model):
     price = db.Column(db.String(10))
     unit_price = db.Column(db.String(10))
     pack_of = db.Column(db.String(10))
+    url = db.Column(db.String(200))
     # users = db.relationship('User', backref=db.backref('product',
     # 							lazy='dynamic'))
 
 
-    def __init__(self, asin, title, price, unit_price, pack_of):
+    def __init__(self, asin, title, price, unit_price, pack_of,url):
         self.asin = asin
         self.title = title
         self.price = price
         self.unit_price = unit_price
         self.pack_of = pack_of
+        self.url = url
 
     def __repr__(self):
         return '<Title %r>' % self.title

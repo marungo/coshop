@@ -1,13 +1,46 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <title>Collaboration Form</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- Bootstrap -->
-    <!-- <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen"> -->
-    <!-- Latest compiled and minified CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-    <!-- <link href="overrides.css" rel="stylesheet"> -->
-   </head>
-   <body><p>You're Done!</p></body>
+<html lang='en'>
+<head>
+  <meta charset="utf-8" />
+  <title>coshop</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+</head>
+<style>
+    .btn-primary {
+      color: #fff;
+      background-color: #318a8f;
+      background-image: linear-gradient(to bottom,#318a8f,#318a8f);
+      border-color: #318a8f;
+    }
+
+    .progress .bar {
+        background-image: linear-gradient(to bottom,#62c462,#62c462);
+    }
+
+</style>
+
+<body>
+  <font face="arial">
+    <center><img src='static/logo.png'>
+      <!-- <form name="amazonurl" action="action_page.php" method="post"> -->
+      <div>
+        You just posted your commitment to the Coshop Facebook page! 
+        <a href='https://www.facebook.com/groups/745411662282429/'> Click Here to See it.</a>
+        Want to post again?
+      </div>
+      <form name="amazonurl" action="/form" method="post">
+          <div class="form-group row">
+            <div class="col-sm-12" >
+              Amazon URL: <input type="text" name="amazonProduct" size=50>
+              <button type="submit" class="btn btn-primary" onclick="">Continue</button>
+            </div>
+          </div>
+      </form>
+      <!-- <a href="templates/form.html">Begin</a> -->
+    </center>
+  </font>
+</body>
+<script type="text/javascript" src="//code.jquery.com/jquery-1.9.1.js"></script>  
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
 </html>

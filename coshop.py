@@ -59,9 +59,9 @@ def my_form_post():
 
 	return flask.render_template('form.html', product_info=product_info)
 
-# @APP.route('/done', methods=['GET', 'POST'])
-# def submit_form():
-# 	return flask.render_template('done.html')
+@APP.route('/done', methods=['GET', 'POST'])
+def submit_form():
+	return flask.render_template('done.html')
 
 if __name__ == "__main__":
     APP.debug=False

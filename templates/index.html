@@ -3,10 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <title>coshop</title>
-<!--   <link type="text/css" rel="stylesheet"
-        href="{{ url_for('static',
-              filename='hello.css')}}" /> -->
-  <!-- <link rel="shortcut icon" href="/favicon.ico"> -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 </head>
 
 <body>
@@ -15,11 +12,21 @@
       <!-- <form name="amazonurl" action="action_page.php" method="post"> -->
       <form name="amazonurl" action="/form" method="post">
       <!-- <form name="amazonurl" method="get"> -->
-      	Amazon URL: <input type="text" name="amazonProduct" size=50><br>
-      <input type="submit" value="Generate Post" onclick=''>
+      	
+      <!-- <input type="submit" value="Generate Post" onclick=''> -->
+
+          <div class="form-group row">
+            <div class="col-sm-12" >
+              Amazon URL: <input type="text" name="amazonProduct" size=50>
+              <button type="submit" class="btn btn-primary" onclick="">Continue</button>
+            </div>
+          </div>
       </form>
       <!-- <a href="templates/form.html">Begin</a> -->
     </center>
   </font>
 </body>
+<script type="text/javascript" src="//code.jquery.com/jquery-1.9.1.js"></script>  
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
 </html>
